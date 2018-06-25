@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import model.Client;
 import service.ClientService;
-import service.ClientServiceImpl;
 
 /**
  * Servlet permettant gérer toutes les requêtes HTTP GET se terminant par
@@ -20,16 +20,17 @@ import service.ClientServiceImpl;
  * l'identifiant placé entre le dernier '/' et '.html' (ex:
  * /mon-appli/ma-super-page.html).
  */
-public class ViewsServlet extends HttpServlet {
+public class ViewsServlet extends AutoWiredServlet {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ViewsServlet.class);
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	private ClientService service;
 
-	public ViewsServlet() {
+	/*public ViewsServlet() {
 		this.service = new ClientServiceImpl();
-	}
+	}*/
 
 	@Override
 	protected void doGet(HttpServletRequest request,
