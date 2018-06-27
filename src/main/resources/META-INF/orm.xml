@@ -11,7 +11,7 @@
 				<column name="client_id" />
 				<generated-value strategy="IDENTITY" />
 			</id>
-			<basic name="name" />
+			<basic name="name"  />
 		</attributes>
 	</entity>
 </entity-mappings>

@@ -1,6 +1,7 @@
 package service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,11 +18,26 @@ public class ClientService {
 	}
 	
 	public List<Client> getAllClient() {
+		
 		return this.dao.findAll() ; 	
 	}
 	
 	public Client getValidatedClient(int id) {
-		return this.dao.getOne(id); 
+		Optional<Client> client = this.dao.findById(id) ;
+		if (client.isPresent())
+			return client.get();
+		else 
+			return null ;  
+	}
+	
+	public void deleteClient(int id) {
+		this.dao.deleteById(id);
+	}
+	
+	public void createClient (String name) {
+		Client c = new Client (name);
+		this.dao.save(c) ;
+		
 	}
 	
 	

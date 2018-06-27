@@ -14,12 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import model.Client;
 import service.ClientService;
 
-/**
- * Servlet permettant gérer toutes les requêtes HTTP GET se terminant par
- * ".html" (c.f. web.xml). La page JSP demandée est retrouvée grâce à
- * l'identifiant placé entre le dernier '/' et '.html' (ex:
- * /mon-appli/ma-super-page.html).
- */
+
 public class ViewsServlet extends AutoWiredServlet {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(ViewsServlet.class);
@@ -54,6 +49,11 @@ public class ViewsServlet extends AutoWiredServlet {
 				request.setAttribute("client", this.service
 						.getValidatedClient(Integer.parseInt(clientId)));
 				break;
+			case "delete-client" :
+				          this.service.deleteClient(Integer.parseInt(clientId));
+				          request.setAttribute("clients", this.service.getAllClient());
+				          break ; 
+			         
 			}
 			this.forwardToJsp(request, response, view);
 		} else {
@@ -70,7 +70,11 @@ public class ViewsServlet extends AutoWiredServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		final String strId = request.getParameter("id");
 		final String name = request.getParameter("name");
-		this.service.saveClient(new Client(Integer.parseInt(strId), name));
+		if (strId != null) {
+		   this.service.saveClient(new Client(Integer.parseInt(strId), name));
+		} else {
+			this.service.createClient(name);
+		}
 		response.sendRedirect(request.getContextPath() + "/show-all.html");
 	}
 
