@@ -28,13 +28,12 @@ public class ViewsServlet extends AutoWiredServlet {
 	@Autowired
 	private ClientService service;
 
-	/*public ViewsServlet() {
-		this.service = new ClientServiceImpl();
-	}*/
+	
 
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		
 		LOGGER.debug("Passage dans doGet avec servletPath={}",
 				request.getServletPath());
 		final String view = request.getServletPath().replace(".html", "")
@@ -47,6 +46,10 @@ public class ViewsServlet extends AutoWiredServlet {
 				request.setAttribute("clients", this.service.getAllClient());
 				break;
 			case "show-client":
+				
+				request.setAttribute("client", this.service
+					.getValidatedClient(Integer.parseInt(clientId)));
+			break;
 			case "edit-client":
 				request.setAttribute("client", this.service
 						.getValidatedClient(Integer.parseInt(clientId)));

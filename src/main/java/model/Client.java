@@ -3,7 +3,6 @@ package model;
 public class Client {
 
 	private Integer id;
-
 	private String name;
 
 	// CONSTRUCTEUR
@@ -14,6 +13,13 @@ public class Client {
 	public Client() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Client(String name) {
+		super();
+		this.name = name;
 	}
 
 	/**
